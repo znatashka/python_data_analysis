@@ -21,11 +21,20 @@ mean_ratings = mean_ratings.ix[active_titles]
 
 top_female_ratings = mean_ratings.sort_values(by='F', ascending=False)
 
-print colored('-------- Фильмы, оказавшиеся на первом месте у зрителей-женщин --------', 'blue')
+print colored('======== Фильмы, оказавшиеся на первом месте у зрителей-женщин ========', 'blue')
 print top_female_ratings[:10]
 print colored('-----------------------------------------------------------------------', 'blue')
 
 mean_ratings['diff'] = mean_ratings['M'] - mean_ratings['F']
 sorted_by_diff = mean_ratings.sort_values(by='diff')
 
-# TODO Makkinni_U__-_Python_i_analiz_dannykh_-_2015 стр 42
+print colored('= Фильмы, которым мужчины поставили высокие, а женщины - низкие оцнки =', 'blue')
+print sorted_by_diff[::-1][:15]
+print colored('-----------------------------------------------------------------------', 'blue')
+
+rating_std_by_title = data.groupby('title')['rating'].std()
+rating_std_by_title = rating_std_by_title.ix[active_titles]
+
+print colored('Фильмы, вызвавшие наибольшее разногласие у зрителей независимо от пола', 'blue')
+print rating_std_by_title.sort_values(ascending=False)[:10]
+print colored('-----------------------------------------------------------------------', 'blue')
